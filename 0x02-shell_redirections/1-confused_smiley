@@ -1,2 +1,2 @@
 #!/bin/bash
-echo -e "\e"\e(Ôo\e)\e'"
+echo -e "\e(0\x6f\e(B"

@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# script displaying the content of the current
+#+directory in a list format
+#only part of name after first dash is displayed
+for filename in *;
+do
+	after_first_dash=${filename##*-}
+	echo "$after_first_dash"
+done

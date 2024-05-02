@@ -6,19 +6,15 @@
 
 sudo apt-get update
 sudo apt-get install -y nginx
+
+sudo service nginx start
+
 sudo ufw allow 'Nginx HTTP'
 
 sudo chown -R "$USER":"$USER" /var/www/html
-sudo chown -R "$USER":"$USER" /etc/nginx/sites-available/default
+sudo chmod -R 755 /var/www
 
 touch /var/www/html/index.html
 echo 'Hello World!' > /var/www/html/index.html
 
-echo "server {
-	listen      80 default_server;
-	listen      [::]:80 default_server;
-	root        /var/www/html;
-	index       index.html index.htm;
-}" > /etc/nginx/sites-available/default
-
-sudo service nginx start
+sudo service nginx restart

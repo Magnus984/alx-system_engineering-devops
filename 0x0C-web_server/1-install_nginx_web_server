@@ -12,18 +12,10 @@ sudo service nginx start
 sudo ufw allow 'Nginx HTTP'
 
 sudo chown -R "$USER":"$USER" /var/www/html
-sudo chown -R "$USER":"$USER" /etc/nginx/sites-available/default
 sudo chmod -R 755 /var/www
 
-touch /var/www/html/index.html
-echo 'Hello World!' > /var/www/html/index.html
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
 
-echo "server {
-     listen      80 default_server;
-     listen      [::]:80 default_server;
-     root        /var/www/html;
-     index       index.html index.htm;
-}" > /etc/nginx/sites-available/default
-
+echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
 
 sudo service nginx restart

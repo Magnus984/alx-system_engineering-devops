@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# installs nginx and sets up a web server
+#+ server listens on port 80 and returns
+#+ a page containing "Hello World!" when
+#+ queried with a curl GET request
+
+sudo apt-get update
+sudo apt-get install -y nginx
+sudo ufw allow 'Nginx HTTP'
+
+sudo chown -R "$USER":"$USER" /var/www/html
+
+touch /var/www/html/index.html
+echo 'Hello World!' > /var/www/html/index.html
+
+sudo service nginx start

@@ -4,18 +4,22 @@
 #+ a page containing "Hello World!" when
 #+ queried with a curl GET request
 
+echo -e "Updating and Installing nginx\n"
 sudo apt-get update
 sudo apt-get install -y nginx
 
+echo -e "\nStarting nginx service\n"
 sudo service nginx start
 
 sudo ufw allow 'Nginx HTTP'
 
+echo -e "\ngiving user ownership.\n"
 sudo chown -R "$USER":"$USER" /var/www/html
 sudo chmod -R 755 /var/www
 
-cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+echo -e "\nCreating and writing into html file\n"
+touch /var/www/html/index.html
+echo 'Hello World!' > /var/www/html/index.html
 
-echo -e "Hello World!" | dd status=none of=/var/www/html/index.nginx-debian.html
-
+echo -e "\nRestarting nginx service\n"
 sudo service nginx restart

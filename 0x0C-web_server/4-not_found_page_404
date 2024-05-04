@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# error page added
+
+echo -e "Updating and Installing nginx\n"
+sudo apt-get update
+sudo apt-get install -y nginx
+
+echo -e "\nSetting up...\n"
+sudo service nginx start
+sudo ufw allow 'Nginx HTTP'
+
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
+
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+
+echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
+
+sed -i '24i\	rewrite ^/redirect_me https://www.youtube.com/watch?v=EVaea-ZoJsU permanent;' /etc/nginx/sites_available/default 
+
+echo "Ceci n'est pas une page" >> /var/www/html/error_404.html
+sudo sed -i '25i\	error_page 404 /error_404.html;' /etc/nginx/sites-available/default
+
+sudo service nginx restart

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# redirection feature added
+
+echo -e "Updating and Installing nginx\n"
+sudo apt-get update
+sudo apt-get install -y nginx
+
+echo -e "\nSetting up...\n"
+sudo service nginx start
+sudo ufw allow 'Nginx HTTP'
+
+sudo chown -R "$USER":"$USER" /var/www/html
+sudo chmod -R 755 /var/www
+
+cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+
+echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
+
+sudo service nginx restart

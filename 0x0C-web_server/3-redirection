@@ -16,4 +16,6 @@ cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.b
 
 echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
 
+sed -i '24i\	rewrite ^/redirect_me https://www.youtube.com/watch?v=EVaea-ZoJsU permanent;' /etc/nginx/sites_available/default 
+
 sudo service nginx restart

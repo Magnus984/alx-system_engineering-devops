@@ -12,7 +12,6 @@ echo -e "\nSetting up...\n"
 
 sudo chown -R "$USER":"$USER" /var/www/html
 sudo chown -R "$USER":"$USER" /etc/nginx/sites-available/default
-sudo chmod -R 755 /var/www
 
 touch /var/www/html/index.html
 echo 'Hello World!' > /var/www/html/index.html
@@ -20,10 +19,9 @@ echo 'Hello World!' > /var/www/html/index.html
 echo "server {
 		listen 80;
 		listen [::]:80;
-
 		root /var/www/html;
 		index index.html
 
 }" > /etc/nginx/sites-available/default
 
-sudo service nginx restart
+sudo service nginx start

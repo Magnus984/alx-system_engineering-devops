@@ -9,35 +9,21 @@ sudo apt-get update
 sudo apt-get install -y nginx
 
 echo -e "\nSetting up...\n"
-sudo service nginx start
 
-sudo ufw allow 'Nginx HTTP'
-
-sudo mkdir -p /var/www/bosm.tech/html
-sudo chown -R "$USER":"$USER" /var/www/bosm.tech/html
+sudo chown -R "$USER":"$USER" /var/www/html
 sudo chown -R "$USER":"$USER" /etc/nginx/sites-available/
-sudo chown -R "$USEr":"$USER" /etc/nginx/sites-enabled/
 sudo chmod -R 755 /var/www
 
-touch /var/www/bosm.tech/html/index.html
-echo 'Hello World!' > /var/www/bosm.tech/html/index.html
+touch /var/www/html/index.html
+echo 'Hello World!' > /var/www/html/index.html
 
-#creating the server block
-touch /etc/nginx/sites-available/bosm.tech
 echo "server {
 		listen 80;
 		listen [::]:80;
 
-		root /var/www/bosm.tech/html;
+		root /var/www/html;
+		index index.html
 
-		server_name bosm.tech www.bosm.tech;
-
-		location / {
-			try_files $uri $uri/ =404;
-		}
-}" > /etc/nginx/sites-available/bosm.tech
-
-#enabling server blocks
-sudo ln -s /etc/nginx/sites-available/bosm.tech /etc/nginx/sites-enabled/
+}" > /etc/nginx/sites-available/default
 
 sudo service nginx restart

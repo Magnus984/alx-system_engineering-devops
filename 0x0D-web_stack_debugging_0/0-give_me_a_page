@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# Script to fix why server isn't responding
+service apache2 start

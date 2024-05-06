@@ -6,16 +6,18 @@ sudo apt-get update
 sudo apt-get install -y nginx
 
 echo -e "\nSetting up...\n"
-sudo service nginx start
 sudo ufw allow 'Nginx HTTP'
 
 sudo chown -R "$USER":"$USER" /var/www/html
 sudo chmod -R 755 /var/www
 
-cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
 
-echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
+echo -e "Hello World!" > /var/www/html/index.html
 
-sed -i '24i\	rewrite ^/redirect_me https://www.youtube.com/watch?v=EVaea-ZoJsU permanent;' /etc/nginx/sites_available/default 
+echo -e "\tlocation /redirect_me {
+\t\treturn 301 https://www.youtube.com/watch?v=hzaQg6jtOnY;
+\t}\n" > /tmp/new_config
+
+sed -i '47r /tmp/new_config' /etc/nginx/sites-available/default
 
 sudo service nginx restart

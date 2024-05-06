@@ -6,19 +6,26 @@ sudo apt-get update
 sudo apt-get install -y nginx
 
 echo -e "\nSetting up...\n"
-sudo service nginx start
 sudo ufw allow 'Nginx HTTP'
 
 sudo chown -R "$USER":"$USER" /var/www/html
 sudo chmod -R 755 /var/www
 
-cp /var/www/html/index.nginx-debian.html /var/www/html/index.nginx-debian.html.bckp
+echo -e "Hello World!" > /var/www/html/index.html
+echo "Ceci n'est pas une page" > /usr/share/nginx/html/my_404.html
 
-echo -e "Hello World!" > /var/www/html/index.nginx-debian.html
+echo -e "\tlocation /redirect_me {
+\t\treturn 301 https://www.youtube.com/watch?v=hzaQg6jtOnY;
+\t}
 
-sed -i '24i\	rewrite ^/redirect_me https://www.youtube.com/watch?v=EVaea-ZoJsU permanent;' /etc/nginx/sites_available/default 
+\terror_page 404 /my_404.html;
+\tlocation = /my_404.html {
+\t\troot /usr/share/nginx/html;
+\t\tinternal;
+\t}\n" > /tmp/new_config
 
-echo "Ceci n'est pas une page" >> /var/www/html/error_404.html
-sudo sed -i '25i\	error_page 404 /error_404.html;' /etc/nginx/sites-available/default
+sed -i '47r /tmp/new_config' /etc/nginx/sites-available/default
 
-sudo service nginx restart
+rm /tmp/new_config
+
+service nginx start

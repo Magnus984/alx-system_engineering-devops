@@ -26,7 +26,7 @@ if __name__ == "__main__":
 
     name = users.get('name')
     print(
-        f"Employee {name} is done with tasks({completed}/{total})"
+            f"Employee {name} is done with tasks({completed}/{total}):"
     )
 
     for i in range(len(to_do_list)):

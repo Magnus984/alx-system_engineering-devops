@@ -26,9 +26,9 @@ if __name__ == '__main__':
             TASK_COMPLETED_STATUS = task.get('completed')
             TASK_TITLE = task.get('title')
             users_dict[USER_ID].append({
+                "username": USERNAME,
                 "task": TASK_TITLE,
-                "completed": TASK_COMPLETED_STATUS,
-                "username": USERNAME
+                "completed": TASK_COMPLETED_STATUS
             })
 
     with open(
